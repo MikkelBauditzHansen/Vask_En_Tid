@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vask_En_Tid", "Vask_En_Tid\Vask_En_Tid.csproj", "{FFBDEF4F-9ED2-4114-9005-78D3988EEA9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vask_En_Tid_Library", "Vask_En_Tid_Library\Vask_En_Tid_Library.csproj", "{9048E8DB-0C69-43EF-90FA-8693CE0930C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFBDEF4F-9ED2-4114-9005-78D3988EEA9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBDEF4F-9ED2-4114-9005-78D3988EEA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFBDEF4F-9ED2-4114-9005-78D3988EEA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFBDEF4F-9ED2-4114-9005-78D3988EEA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9048E8DB-0C69-43EF-90FA-8693CE0930C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9048E8DB-0C69-43EF-90FA-8693CE0930C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9048E8DB-0C69-43EF-90FA-8693CE0930C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9048E8DB-0C69-43EF-90FA-8693CE0930C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA37953B-F855-4D96-A88A-9FAFB7364EF3}
+	EndGlobalSection
+EndGlobal
