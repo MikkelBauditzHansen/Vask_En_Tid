@@ -12,14 +12,14 @@ namespace Vask_En_Tid_Library.Models
         public int MachineID {  get; set; }
         public int BookingID { get; set; }
         public string MachineType {  get; set; }
-        public string Name { get; set; }
+        public string MachineName { get; set; }
 
-        public Machine(int machineID, int bookingID, string machineType, string name)
+        public Machine(int machineID, int bookingID, string machineType, string machineName)
         {
             MachineID = machineID;
             BookingID = bookingID;
             MachineType = machineType;
-            Name = name;
+            MachineName = machineName;
         }
         public Machine() { }
 

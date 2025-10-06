@@ -13,12 +13,12 @@ namespace Vask_En_Tid_Library.Models
 
         public override void Book()
         {
-            Console.WriteLine($"👕 Rullemaskine '{Name}' er nu booket!");
+            Console.WriteLine($"👕 Rullemaskine '{MachineName}' er nu booket!");
         }
 
         public override void CancelBooking()
         {
-            Console.WriteLine($"👕 Booking af rullemaskine '{Name}' er annulleret.");
+            Console.WriteLine($"👕 Booking af rullemaskine '{MachineName}' er annulleret.");
         }
     }
 }
