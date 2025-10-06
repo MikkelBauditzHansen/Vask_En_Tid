@@ -14,10 +14,10 @@ namespace Vask_En_Tid_Library.Models
         public int PostNr { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public int AppartmentNr { get; set; }
+        public int ApartmentNr { get; set; }
         public int FloorNr { get; set; }
 
-        public Resident(int residentID, string name, string city, int postNr, string phoneNumber, string email, int appartmentNr, int floorNr)
+        public Resident(int residentID, string name, string city, int postNr, string phoneNumber, string email, int apartmentNr, int floorNr)
         {
             ResidentID = residentID;
             Name = name;
@@ -25,7 +25,7 @@ namespace Vask_En_Tid_Library.Models
             PostNr = postNr;
             PhoneNumber = phoneNumber;
             Email = email;
-            AppartmentNr = appartmentNr;
+            ApartmentNr = apartmentNr;
             FloorNr = floorNr;
         }
         public Resident() { }
