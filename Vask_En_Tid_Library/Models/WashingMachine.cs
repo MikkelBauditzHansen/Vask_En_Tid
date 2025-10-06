@@ -11,21 +11,14 @@ namespace Vask_En_Tid_Library.Models
         public WashingMachine(int id, int bookingId, string name)
         : base(id, bookingId, "WashingMachine", name) { }
 
-        public override void Add(Machine machine)
+        public override void Book()
         {
-            Console.WriteLine($"Vaskemaskine: {Name} er nu booket!");
+            Console.WriteLine($"🧼 Vaskemaskine '{Name}' er nu booket!");
         }
-        public override void Delete(int id)
+
+        public override void CancelBooking()
         {
-            Console.WriteLine($"Booking af vaskemaskine: {Name} er nu annulleret ");
-        }
-        public override List<Machine> GetAll()
-        {
-            return new List<Machine>();
-        }
-        public override void Update(Machine machine)
-        {
-            Console.WriteLine($"Listen af maskiner er nu opdateret");
+            Console.WriteLine($"🧼 Booking af vaskemaskine '{Name}' er annulleret.");
         }
     }
 }
