@@ -27,7 +27,7 @@ namespace Vask_En_Tid_Library.Repository
                 cmd.Parameters.AddWithValue("@PostNr", resident.PostNr);
                 cmd.Parameters.AddWithValue("@Email", resident.Email);
                 cmd.Parameters.AddWithValue("@ApartmentNr", resident.ApartmentNr);
-                cmd.Parameters.AddWithValue("@f", resident.FloorNr);
+                cmd.Parameters.AddWithValue("@FloorNr", resident.FloorNr);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -48,13 +48,14 @@ namespace Vask_En_Tid_Library.Repository
                     {
                         Resident r = new Resident
                         {
-                            ResidentID = (int)reader["BeboerID"],
-                            Name = (string)reader["Navn"],
-                            PhoneNumber = (string)reader["Mobil"],
+                            ResidentID = (int)reader["ResidentID"],
+                            PhoneNumber = (string)reader["PhoneNr"],
+                            Name = (string)reader["Name"],
+                            City = (string)reader["City"],
                             Email = (string)reader["Email"],
-                            PostNr = (int)reader["Postnummer"],
-                            AppartmentNr = (int)reader["Lejlighedsnummer"],
-                            FloorNr = (int)reader["Etagenummer"]
+                            PostNr = (int)reader["PostNr"],
+                            ApartmentNr = (int)reader["ApartmentNr"],
+                            FloorNr = (int)reader["FloorNr"]
                         };
                         residents.Add(r);
                     }
@@ -97,16 +98,17 @@ namespace Vask_En_Tid_Library.Repository
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "UPDATE Resident SET Navn=@n, Mobil=@m, Email=@e, Postnummer=@p, " +
-                    "Lejlighedsnummer=@l, Etagenummer=@f WHERE BeboerID=@id", conn);
+                    "UPDATE Resident SET ResidentID=@ResidentId, PhoneNumber=@PhoneNumber, City=@City, PostNr=@PostNr, Email=@Email, " +
+                    "ApartmentNr=@ApartmentNr, ApartmentNr=@ApartmentNr, FloorNr=@FloorNr", conn);
 
-                cmd.Parameters.AddWithValue("@n", resident.Name);
-                cmd.Parameters.AddWithValue("@m", resident.PhoneNumber);
-                cmd.Parameters.AddWithValue("@e", resident.Email);
-                cmd.Parameters.AddWithValue("@p", resident.PostNr);
-                cmd.Parameters.AddWithValue("@l", resident.AppartmentNr);
-                cmd.Parameters.AddWithValue("@f", resident.FloorNr);
-                cmd.Parameters.AddWithValue("@id", resident.ResidentID);
+                cmd.Parameters.AddWithValue("@ResidentID", resident.ResidentID);
+                cmd.Parameters.AddWithValue("@PhoneNumber", resident.PhoneNumber);
+                cmd.Parameters.AddWithValue("@Name", resident.Name);
+                cmd.Parameters.AddWithValue("@City", resident.City);
+                cmd.Parameters.AddWithValue("@PostNr", resident.PostNr);
+                cmd.Parameters.AddWithValue("@Email", resident.Email);
+                cmd.Parameters.AddWithValue("@ApartmentNr", resident.ApartmentNr);
+                cmd.Parameters.AddWithValue("@FloorNr", resident.FloorNr);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
