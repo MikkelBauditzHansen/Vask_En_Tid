@@ -14,7 +14,7 @@ namespace Vask_En_Tid_Library.Repository
         }
         public void Add(Resident resident)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTid;Trusted_Connection=True;TrustServerCertificate=True;"))
             {
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO Resident (PhoneNumber, ResidentName, City, PostNr, Email, ApartmentNr, FloorNr) " +
@@ -36,7 +36,7 @@ namespace Vask_En_Tid_Library.Repository
         {
             List<Resident> residents = new List<Resident>();
 
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTid;Trusted_Connection=True;TrustServerCertificate=True;"))
             {
                 SqlCommand cmd = new SqlCommand("SELECT * FROM Resident", conn);
                 conn.Open();
@@ -65,7 +65,7 @@ namespace Vask_En_Tid_Library.Repository
 
         public void Update(Resident resident)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTid;Trusted_Connection=True;TrustServerCertificate=True;"))
             {
                 SqlCommand cmd = new SqlCommand(
                     "UPDATE Resident SET ResidentID=@ResidentId, PhoneNumber=@PhoneNumber, ResidentName = @ResidentName, City=@City, PostNr=@PostNr, Email=@Email, " +

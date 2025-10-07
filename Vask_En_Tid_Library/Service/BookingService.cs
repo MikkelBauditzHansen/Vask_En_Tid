@@ -20,28 +20,35 @@ namespace Vask_En_Tid_Library.Service
         public void Add(Booking booking)
         {
             List<Booking> all = _bookingRepo.GetAll();
-            foreach (Booking existing in all)
-            {
-                if (existing.ResidentID == booking.ResidentID &&
-                    existing.BookingDate == booking.BookingDate &&
-                    existing.TimeSlot == booking.TimeSlot)
-                {
-                    throw new Exception("Du har allerede en booking i dette tidsrum.");
-                }
-            }
 
             foreach (Booking existing in all)
             {
-                if (existing.MachineID == booking.MachineID &&
-                    existing.BookingDate == booking.BookingDate &&
-                    existing.TimeSlot == booking.TimeSlot)
+                bool sameResident = existing.ResidentID == booking.ResidentID;
+                bool futureOrSameDay = existing.BookingDate >= DateTime.Today;
+
+                if (sameResident && futureOrSameDay)
                 {
-                    throw new Exception("Maskinen er allerede booket i dette tidsrum.");
+                    throw new Exception("Denne beboer har allerede en aktiv booking.");
                 }
             }
+
+
+            foreach (Booking existing in all)
+            {
+                bool sameMachine = existing.MachineID == booking.MachineID;
+                bool sameDate = existing.BookingDate.Date == booking.BookingDate.Date;
+                bool sameSlot = existing.TimeSlot == booking.TimeSlot;
+
+                if (sameMachine && sameDate && sameSlot)
+                {
+                    throw new Exception("Denne maskine er allerede booket i dette tidsrum.");
+                }
+            }
+
 
             _bookingRepo.Add(booking);
         }
+
 
         public void Delete(int id)
         {

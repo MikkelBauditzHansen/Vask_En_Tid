@@ -21,6 +21,9 @@ namespace Vask_En_Tid_Library.Models
         public int MachineID { get; set; }   
         public TimeSlotType TimeSlot { get; set; }
 
+        public Resident Resident { get; set; }
+        public Machine Machine { get; set; }
+
         public Booking (int bookingID, DateTime bookingDate,int residentID, int machineID, TimeSlotType timeSlot)
         {
             BookingID = bookingID;

@@ -20,5 +20,6 @@ namespace Vask_En_Tid_Library.Models
         {
             Console.WriteLine($"👕 Booking af rullemaskine '{MachineName}' er annulleret.");
         }
+        public IroningMachine() : base() { }
     }
 }
