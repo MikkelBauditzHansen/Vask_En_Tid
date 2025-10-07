@@ -13,7 +13,7 @@ namespace Vask_En_Tid_Library.Models
         Evening,
         Night
     }
-    internal class Booking
+    public class Booking
     {
         public int BookingID {  get; set; }
         public DateTime BookingDate {  get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vask_En_Tid_Library.Models
 {
-    internal interface IMachineActions
+    public interface IMachineActions
     {
         void Book();
         void CancelBooking();

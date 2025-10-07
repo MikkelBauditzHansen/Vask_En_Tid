@@ -8,7 +8,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal class MachineCollectionRepo : IMachineRepository
+    public class MachineCollectionRepo : IMachineRepository
     {
         private readonly string _connectionString;
 

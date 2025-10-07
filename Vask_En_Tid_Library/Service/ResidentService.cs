@@ -8,7 +8,7 @@ using Vask_En_Tid_Library.Repository;
 
 namespace Vask_En_Tid_Library.Service
 {
-    internal class ResidentService
+    public class ResidentService
     {
         private readonly IResidentRepository _residentRepo;
 

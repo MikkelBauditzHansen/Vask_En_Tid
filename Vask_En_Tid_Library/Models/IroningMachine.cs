@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vask_En_Tid_Library.Models
 {
-    internal class IroningMachine : Machine
+    public class IroningMachine : Machine
     {
         public IroningMachine(int id, int bookingId, string name)
         : base(id, bookingId, "IroningMachine", name) { }

@@ -7,7 +7,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal interface IMachineRepository
+    public interface IMachineRepository
     {
         public void Add(Machine machine);
         public void Delete(int id);

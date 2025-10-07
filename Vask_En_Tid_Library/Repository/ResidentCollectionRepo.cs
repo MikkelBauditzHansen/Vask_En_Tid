@@ -4,7 +4,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal class ResidentCollectionRepo : IResidentRepository
+    public class ResidentCollectionRepo : IResidentRepository
     {
         private readonly string _connectionString;
 

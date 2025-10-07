@@ -1,0 +1,17 @@
+﻿@page
+@model Vask_En_Tid.Pages.CreateUserModel
+@{
+}
+<form method="post" enctype="multipart/form-data">
+	<input type="text" asp-for="Resident.AnimalID" placeholder="ID" />
+	<input type="text" asp-for="Resident.Name" placeholder="Navn" />
+	<input type="text" asp-for="Resident.Race" placeholder="Race" />
+	<input type="text" asp-for="Resident.Species" placeholder="dyreart" />
+	<input type="number" asp-for="Resident.Age" placeholder="Age" />
+	<input type="number" asp-for="Resident.Size" placeholder="Størrelse i kg" />
+	<input type="text" asp-for="Resident.Gender" placeholder="Køn" />
+
+	<input type="file" name="ImageFile" />
+
+	<input type="submit" value="Gem">
+</form>

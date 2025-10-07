@@ -7,7 +7,7 @@ using Vask_En_Tid_Library.Repository;
 
 namespace Vask_En_Tid_Library.Service
 {
-    internal class BookingService
+    public class BookingService
     {
         private readonly IBookingRepository _bookingRepo;
 

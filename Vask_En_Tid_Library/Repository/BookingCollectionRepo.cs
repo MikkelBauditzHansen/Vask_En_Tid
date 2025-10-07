@@ -8,7 +8,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal class BookingCollectionRepo : IBookingRepository
+    public class BookingCollectionRepo : IBookingRepository
     {
 
         private string _connectionString;

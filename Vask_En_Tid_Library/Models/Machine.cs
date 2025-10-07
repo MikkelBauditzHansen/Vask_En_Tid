@@ -7,7 +7,7 @@ using Vask_En_Tid_Library.Repository;
 
 namespace Vask_En_Tid_Library.Models
 {
-    internal abstract class Machine : IMachineActions
+    public abstract class Machine : IMachineActions
     {
         public int MachineID {  get; set; }
         public int BookingID { get; set; }

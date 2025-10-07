@@ -7,7 +7,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal interface IBookingRepository
+    public interface IBookingRepository
     {
         public void Add(Booking booking);
         public void Delete(int id);

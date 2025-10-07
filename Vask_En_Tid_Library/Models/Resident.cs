@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vask_En_Tid_Library.Models
 {
-    internal class Resident
+    public class Resident
     {
         public int ResidentID {  get; set; }
         public string Name { get; set; }

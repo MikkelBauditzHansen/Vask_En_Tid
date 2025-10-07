@@ -7,7 +7,7 @@ using Vask_En_Tid_Library.Models;
 
 namespace Vask_En_Tid_Library.Repository
 {
-    internal interface IResidentRepository
+    public interface IResidentRepository
     {
         public void Add(Resident resident);
         public void Delete(int id);

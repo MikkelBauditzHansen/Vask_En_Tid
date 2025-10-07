@@ -9,7 +9,7 @@ using Vask_En_Tid_Library.Repository;
 
 namespace Vask_En_Tid_Library.Service
 {
-    internal class MachineService
+    public class MachineService
     {
         private readonly IMachineRepository _machineRepo;
 
