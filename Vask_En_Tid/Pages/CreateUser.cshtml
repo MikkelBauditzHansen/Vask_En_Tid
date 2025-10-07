@@ -3,15 +3,15 @@
 @{
 }
 <form method="post" enctype="multipart/form-data">
-	<input type="text" asp-for="Resident.AnimalID" placeholder="ID" />
-	<input type="text" asp-for="Resident.Name" placeholder="Navn" />
-	<input type="text" asp-for="Resident.Race" placeholder="Race" />
-	<input type="text" asp-for="Resident.Species" placeholder="dyreart" />
-	<input type="number" asp-for="Resident.Age" placeholder="Age" />
-	<input type="number" asp-for="Resident.Size" placeholder="Størrelse i kg" />
-	<input type="text" asp-for="Resident.Gender" placeholder="Køn" />
+	<input type="number" asp-for="Resident.ResidentID" placeholder="ID" />
+	<input type="text" asp-for="Resident.ResidentName" placeholder="Navn" />
+	<input type="text" asp-for="Resident.City" placeholder="By" />
+	<input type="text" asp-for="Resident.PostNr" placeholder="Post Nummer" />
+	<input type="text" asp-for="Resident.PhoneNumber" placeholder="Telefon Nummer" />
+	<input type="text" asp-for="Resident.Email" placeholder="Email" />
+	<input type="number" asp-for="Resident.ApartmentNr" placeholder="Lejligheds Nummer" />
+	<input type="number" asp-for="Resident.FloorNr" placeholder="Etage Nummer" />
 
-	<input type="file" name="ImageFile" />
 
 	<input type="submit" value="Gem">
 </form>

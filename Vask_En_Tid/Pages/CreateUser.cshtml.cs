@@ -11,9 +11,7 @@ namespace Vask_En_Tid.Pages
         [BindProperty]
         public Resident Resident { get; set; } // aggregering
 
-        // Det billede der uploades til beboeren
-        [BindProperty]
-        public IFormFile ImageFile { get; set; }
+       
 
         // Service til håndtering af beboer
         private ResidentService _residentService;
@@ -34,32 +32,17 @@ namespace Vask_En_Tid.Pages
         {
         }
 
-        // POST-metode – gemmer dyret og eventuelt billede
+        // POST-metode – gemmer beboeren
         public IActionResult OnPost()
         {
-            // Hvis brugeren har uploadet et billede
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                // Opret et unikt filnavn og find filsti
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                string filePath = Path.Combine(_env.WebRootPath, "Img", fileName);
+            
 
-                // Gem billedet på serveren
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                {
-                    ImageFile.CopyTo(stream);
-                }
-
-                // Gem filnavnet (relativ sti) i modellen
-                Animal.ImagePath = fileName;
-            }
-
-            // Tilføj dyret til servicen
+            // Tilføj beboeren til servicen
             Debug.WriteLine("test");
-            _animalService.Add(Animal);
+            _residentService.Add(Resident);
 
             // Gå tilbage til oversigten
-            return RedirectToPage("/AnimalsGrid");
+            return RedirectToPage("/ResidentGrid");
         }
     }
 }

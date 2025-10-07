@@ -1,0 +1,26 @@
+﻿@page
+@model Vask_En_Tid.Pages.ResidentGridModel
+@{
+}
+<div class="card-container">
+    @foreach (var resident in Model.Resident)
+    {
+        <div class="card">
+            <div class="card__bg">
+                <div class="card-body">
+                    <h5 class="card-title">@resident.ResidentName</h5>
+                    <p class="card-text">
+                        Telefon Nummer: @resident.PhoneNumber<br />
+                        Email: @resident.Email<br />
+                        <span>Lejligheds Nummer: @resident.ApartmentNr</span><br />
+                        Etage: @resident.FloorNr
+                    </p>
+                    <form method="post" asp-page-handler="Delete" class="ms-3">
+                        <input type="hidden" name="residentID" value="@resident.ResidentID" />
+                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
