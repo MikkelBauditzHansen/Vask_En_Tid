@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vask_En_Tid_Library.Models;
 using Vask_En_Tid_Library.Repository;
 
 namespace Vask_En_Tid_Library.Service
@@ -16,8 +17,29 @@ namespace Vask_En_Tid_Library.Service
             _bookingRepo = bookingRepo;
         }
 
-        public void Add(Models.Booking booking)
+        public void Add(Booking booking)
         {
+            List<Booking> all = _bookingRepo.GetAll();
+            foreach (Booking existing in all)
+            {
+                if (existing.ResidentID == booking.ResidentID &&
+                    existing.BookingDate == booking.BookingDate &&
+                    existing.TimeSlot == booking.TimeSlot)
+                {
+                    throw new Exception("Du har allerede en booking i dette tidsrum.");
+                }
+            }
+
+            foreach (Booking existing in all)
+            {
+                if (existing.MachineID == booking.MachineID &&
+                    existing.BookingDate == booking.BookingDate &&
+                    existing.TimeSlot == booking.TimeSlot)
+                {
+                    throw new Exception("Maskinen er allerede booket i dette tidsrum.");
+                }
+            }
+
             _bookingRepo.Add(booking);
         }
 

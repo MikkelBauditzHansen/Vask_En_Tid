@@ -21,11 +21,11 @@ namespace Vask_En_Tid_Library.Models
         public int MachineID { get; set; }   
         public TimeSlotType TimeSlot { get; set; }
 
-        public Booking (int bookingID, DateTime bookingDate, int renterID, int machineID, TimeSlotType timeSlot)
+        public Booking (int bookingID, DateTime bookingDate,int residentID, int machineID, TimeSlotType timeSlot)
         {
             BookingID = bookingID;
             BookingDate = bookingDate;
-            BookingID = renterID;
+            ResidentID = residentID;
             MachineID = machineID;
             TimeSlot = timeSlot;
              
