@@ -9,21 +9,26 @@ namespace Vask_En_Tid_Library.Repository
     {
         private readonly string _connectionString;
 
+        // Constructor – gemmer connection string så vi kan bruge den i hele klassen
         public MachineCollectionRepo(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        // GET – henter alle maskiner fra databasen
         public List<Machine> GetAll()
         {
-            var machines = new List<Machine>();
+            List<Machine> machines = new List<Machine>();
 
-            using (var connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("SELECT MachineID, MachineName, MachineType FROM Machine", connection);
+                // SQL – henter alle maskiner og sorterer efter type og navn
+                string query = "SELECT MachineID, MachineName, MachineType FROM Machine ORDER BY MachineType, MachineName";
+
+                SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
 
-                using (var reader = command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -33,6 +38,7 @@ namespace Vask_En_Tid_Library.Repository
 
                         Machine machine;
 
+                        // Opretter det rigtige maskine-objekt baseret på typen (polymorfi)
                         switch (type)
                         {
                             case "WashingMachine":
@@ -57,37 +63,51 @@ namespace Vask_En_Tid_Library.Repository
             return machines;
         }
 
+        // ADD – tilføjer en ny maskine i databasen
         public void Add(Machine machine)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("INSERT INTO Machine (MachineName, MachineType) VALUES (@MachineName, @MachineType)", connection);
+                // SQL – indsætter ny række i Machine-tabellen
+                string query = "INSERT INTO Machine (MachineName, MachineType) VALUES (@MachineName, @MachineType)";
+
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@MachineName", machine.MachineName);
                 command.Parameters.AddWithValue("@MachineType", machine.MachineType);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
         }
 
+        // UPDATE – opdaterer eksisterende maskine
         public void Update(Machine machine)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("UPDATE Machine SET MachineName = @MachineName, MachineType = @MachineType WHERE MachineID = @MachineID", connection);
+                // SQL – opdaterer navn og type ud fra maskinens ID
+                string query = "UPDATE Machine SET MachineName = @MachineName, MachineType = @MachineType WHERE MachineID = @MachineID";
+
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@MachineID", machine.MachineID);
                 command.Parameters.AddWithValue("@MachineName", machine.MachineName);
                 command.Parameters.AddWithValue("@MachineType", machine.MachineType);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
         }
 
+        // DELETE – sletter maskine ud fra ID
         public void Delete(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("DELETE FROM Machine WHERE MachineID = @MachineID", connection);
+                string query = "DELETE FROM Machine WHERE MachineID = @MachineID";
+
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@MachineID", id);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
