@@ -29,11 +29,18 @@
             foreach (var booking in Model.Bookings)
             {
                 <tr>
+                    
                     <td>@booking.BookingID</td>
                     <td>@booking.ResidentID</td>
                     <td>@booking.MachineID</td>
                     <td>@booking.BookingDate.ToString("dd-MM-yyyy")</td>
                     <td>@booking.TimeSlot</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="bookingID" value="@booking.BookingID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                        </form>
+                    </td>
                 </tr>
             }
         }

@@ -9,11 +9,13 @@ namespace Vask_En_Tid.Pages
 {
     public class CreateBookingModel : PageModel
     {
+        private readonly string connectionString =
+    "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
         public List<Booking> Bookings { get; private set; }
 
         public void OnGet()
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
+            //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
             BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
             BookingService service = new BookingService(repo);
 
@@ -26,7 +28,7 @@ namespace Vask_En_Tid.Pages
 
         public void OnPost()
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
+            //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
             BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
             BookingService service = new BookingService(repo);
 
@@ -41,6 +43,28 @@ namespace Vask_En_Tid.Pages
             }
 
             Bookings = service.GetAll();
+        }
+
+        public IActionResult OnPostDelete(int bookingID)
+        {
+            var repo = new BookingCollectionRepo(connectionString);
+            var service = new BookingService(repo);
+
+            try
+            {
+                service.Delete(bookingID); 
+                Message = "Booking slettet!";
+            }
+            catch (Exception ex)
+            {
+                Message = "Fejl ved sletning: " + ex.Message;
+            }
+
+           
+            Bookings = service.GetAll();
+
+           
+            return RedirectToPage();
         }
 
     }
