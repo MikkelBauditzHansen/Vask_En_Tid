@@ -13,14 +13,15 @@
 }
 
 <!-- Liste over eksisterende bookinger -->
-<table class="table table-bordered" style="width:60%; margin-bottom:20px;">
+<table class="table table-bordered" style="width:70%; margin-bottom:20px;">
     <thead>
         <tr>
             <th>Booking ID</th>
-            <th>Beboer ID</th>
-            <th>Maskine ID</th>
+            <th>Beboer</th>
+            <th>Maskine</th>
             <th>Dato</th>
             <th>Tidsrum</th>
+            <th>Handling</th>
         </tr>
     </thead>
     <tbody>
@@ -29,10 +30,17 @@
             foreach (var booking in Model.Bookings)
             {
                 <tr>
-                    
                     <td>@booking.BookingID</td>
-                    <td>@booking.ResidentID</td>
-                    <td>@booking.MachineID</td>
+                    <td>
+                        @(booking.Resident != null
+                            ? booking.Resident.ResidentName
+                            : $"ID: {booking.ResidentID}")
+                    </td>
+                    <td>
+                        @(booking.Machine != null
+                            ? booking.Machine.MachineName
+                            : $"ID: {booking.MachineID}")
+                    </td>
                     <td>@booking.BookingDate.ToString("dd-MM-yyyy")</td>
                     <td>@booking.TimeSlot</td>
                     <td>
@@ -47,7 +55,7 @@
         else
         {
             <tr>
-                <td colspan="5" style="text-align:center;">Ingen bookinger fundet</td>
+                <td colspan="6" style="text-align:center;">Ingen bookinger fundet</td>
             </tr>
         }
     </tbody>
@@ -59,24 +67,46 @@
 <h3>Opret ny booking</h3>
 
 <form method="post" style="width:50%;">
+    <!-- Beboer dropdown -->
     <div style="margin-bottom:10px;">
-        <label for="ResidentID">Beboer ID:</label><br />
-        <input asp-for="NewBooking.ResidentID" type="number" id="ResidentID" required />
+        <label for="ResidentID">Vælg beboer:</label><br />
+        <select asp-for="NewBooking.ResidentID" id="ResidentID" required>
+            <option value="">-- Vælg beboer --</option>
+            @if (Model.Residents != null)
+            {
+                foreach (var r in Model.Residents)
+                {
+                    <option value="@r.ResidentID">@r.ResidentName (Lejlighed @r.ApartmentNr)</option>
+                }
+            }
+        </select>
     </div>
 
+    <!-- Maskine dropdown -->
     <div style="margin-bottom:10px;">
-        <label for="MachineID">Maskine ID:</label><br />
-        <input asp-for="NewBooking.MachineID" type="number" id="MachineID" required />
+        <label for="MachineID">Vælg maskine:</label><br />
+        <select asp-for="NewBooking.MachineID" id="MachineID" required>
+            <option value="">-- Vælg maskine --</option>
+            @if (Model.Machines != null)
+            {
+                foreach (var m in Model.Machines)
+                {
+                    <option value="@m.MachineID">@m.MachineName (@m.MachineType)</option>
+                }
+            }
+        </select>
     </div>
 
+    <!-- Dato -->
     <div style="margin-bottom:10px;">
         <label for="BookingDate">Dato:</label><br />
         <input asp-for="NewBooking.BookingDate" type="date" id="BookingDate" required />
     </div>
 
+    <!-- Tidsrum -->
     <div style="margin-bottom:10px;">
         <label for="TimeSlot">Tidsrum:</label><br />
-        <select asp-for="NewBooking.TimeSlot" id="TimeSlot">
+        <select asp-for="NewBooking.TimeSlot" id="TimeSlot" required>
             <option value="Morning">Morgen (08-10)</option>
             <option value="Afternoon">Eftermiddag (12-14)</option>
             <option value="Evening">Aften (16-18)</option>
@@ -84,5 +114,5 @@
         </select>
     </div>
 
-    <button type="submit">Book tid</button>
+    <button type="submit" class="btn btn-primary">Book tid</button>
 </form>

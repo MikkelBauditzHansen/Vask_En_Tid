@@ -62,7 +62,7 @@ namespace Vask_En_Tid_Library.Repository
                     res.PostNr = reader["PostNr"] != DBNull.Value ? reader["PostNr"].ToString() : "";
                     res.PhoneNumber = reader["PhoneNumber"] != DBNull.Value ? reader["PhoneNumber"].ToString() : "";
                     res.Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : "";
-                    res.ApartmentNr = reader["ApartmentNr"] != DBNull.Value ? (int)reader["ApartmentNr"] : 0;
+                    res.ApartmentNr = reader["ApartmentNr"].ToString();
                     res.FloorNr = reader["FloorNr"] != DBNull.Value ? (int)reader["FloorNr"] : 0;
 
                     b.Resident = res;

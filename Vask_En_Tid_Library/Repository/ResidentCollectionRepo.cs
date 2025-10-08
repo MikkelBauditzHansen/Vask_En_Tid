@@ -53,7 +53,7 @@ namespace Vask_En_Tid_Library.Repository
                             City = (string)reader["City"],
                             Email = (string)reader["Email"],
                             PostNr = (string)reader["PostNr"],
-                            ApartmentNr = (int)reader["ApartmentNr"],
+                            ApartmentNr = (string)reader["ApartmentNr"],
                             FloorNr = (int)reader["FloorNr"]
                         };
                         residents.Add(r);

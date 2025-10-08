@@ -1,26 +1,38 @@
 ﻿@page
 @model Vask_En_Tid.Pages.ResidentGridModel
 @{
+    ViewData["Title"] = "Beboeroversigt";
 }
+
+<h2>Beboeroversigt</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div style="font-weight:bold; color:green;">@TempData["Message"]</div>
+}
+
 <div class="card-container">
-    @foreach (var resident in Model.Resident)
+    @if (Model.Resident != null && Model.Resident.Count > 0)
     {
-        <div class="card">
-            <div class="card__bg">
-                <div class="card-body">
-                    <h5 class="card-title">@resident.ResidentName</h5>
-                    <p class="card-text">
-                        Telefon Nummer: @resident.PhoneNumber<br />
-                        Email: @resident.Email<br />
-                        <span>Lejligheds Nummer: @resident.ApartmentNr</span><br />
-                        Etage: @resident.FloorNr
-                    </p>
-                    <form method="post" asp-page-handler="Delete" class="ms-3">
-                        <input type="hidden" name="residentID" value="@resident.ResidentID" />
-                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
-                    </form>
-                </div>
+        @foreach (var resident in Model.Resident)
+        {
+            <div class="card" style="margin:10px; padding:10px; border:1px solid #ccc; border-radius:10px;">
+                <h5>@resident.ResidentName</h5>
+                <p>
+                    Telefon: @resident.PhoneNumber<br />
+                    Email: @resident.Email<br />
+                    Lejlighed: @resident.ApartmentNr<br />
+                    Etage: @resident.FloorNr
+                </p>
+                <form method="post" asp-page-handler="Delete">
+                    <input type="hidden" name="residentID" value="@resident.ResidentID" />
+                    <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                </form>
             </div>
-        </div>
+        }
+    }
+    else
+    {
+        <p>Ingen beboere fundet.</p>
     }
 </div>

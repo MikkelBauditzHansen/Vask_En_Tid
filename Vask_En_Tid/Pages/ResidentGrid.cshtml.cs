@@ -1,51 +1,84 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using Vask_En_Tid_Library.Models;
+using Vask_En_Tid_Library.Repository;
 using Vask_En_Tid_Library.Service;
 
 namespace Vask_En_Tid.Pages
 {
     public class ResidentGridModel : PageModel
     {
-        public List<Resident> Resident { get; set; } = new List<Resident>();
-        // Service til håndtering af beboerdata
-        private readonly ResidentService _residentService;
+        // Connection string til SQL-databasen
+        private readonly string _connectionString =
+            "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;TrustServerCertificate=True;";
 
-        // Constructor – sætter filstien ud fra projektets rodmappe og initialiserer service
-        public ResidentGridModel(IWebHostEnvironment environment, ResidentService residentService)
-        {
-            _residentService = residentService;
-        }
-        // Beboer som brugeren kan tilføje via formular
+        // Liste som indeholder alle beboere
+        public List<Resident> Resident { get; set; } = new List<Resident>();
+
+        // Service som håndterer CRUD-operationer for beboere
+        private ResidentService _residentService;
+
+        // Property som bruges til at modtage nye beboerdata fra formularen
         [BindProperty]
         public Resident NewResident { get; set; } = new Resident();
 
-        // GET-metode – henter og filtrerer dyr
+        // Constructor – initialiserer repository og service så vi kan forbinde til databasen
+        public ResidentGridModel()
+        {
+            // Opretter repository og sender det videre til service-laget
+            ResidentCollectionRepo repo = new ResidentCollectionRepo(_connectionString);
+            _residentService = new ResidentService(repo);
+        }
+
+        // GET-metode – kaldes når siden hentes første gang
+        // Henter alle eksisterende beboere fra databasen
         public void OnGet()
         {
-            // Henter alle beboer fra service
             Resident = _residentService.GetAll();
         }
 
-        // POST-metode – tilføjer ny beboer
+        // POST-metode – kaldes når brugeren indsender formularen for at oprette en ny beboer
         public IActionResult OnPost()
         {
-            // Tilføj nyt dyr via service
-            _residentService.Add(NewResident);
+            try
+            {
+                // Forsøger at tilføje den nye beboer til databasen
+                _residentService.Add(NewResident);
 
-            // Hent eksisterende liste fra JSON
-            List<Resident> residents = new List<Resident>();
+                // Viser besked på siden hvis oprettelsen lykkes
+                TempData["Message"] = "Beboer oprettet!";
+            }
+            catch (System.Exception ex)
+            {
+                // Hvis der sker en fejl, vises en fejlbesked til brugeren
+                TempData["Message"] = "Fejl under oprettelse: " + ex.Message;
+            }
 
-            // Genindlæs siden
+            // Genindlæser siden så brugeren ser den opdaterede liste
             return RedirectToPage();
         }
 
-        // POST-metode – slet et dyr ud fra ID
+        // POST-metode – kaldes når brugeren trykker på "Slet" knappen
+        // Denne metode modtager et ID på den beboer der skal slettes
         public IActionResult OnPostDelete(int residentID)
         {
-            _residentService.Delete(residentID);
-            return RedirectToPage(); // Opdaterer siden
+            try
+            {
+                // Forsøger at slette beboeren fra databasen
+                _residentService.Delete(residentID);
+
+                // Viser besked hvis sletningen lykkes
+                TempData["Message"] = "Beboer slettet!";
+            }
+            catch (System.Exception ex)
+            {
+                // Hvis der sker fejl, vis besked på siden
+                TempData["Message"] = "Fejl under sletning: " + ex.Message;
+            }
+
+            // Genindlæser siden for at vise opdateret liste
+            return RedirectToPage();
         }
     }
 }
