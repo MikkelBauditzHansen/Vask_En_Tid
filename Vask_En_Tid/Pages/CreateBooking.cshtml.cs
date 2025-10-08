@@ -9,39 +9,32 @@ namespace Vask_En_Tid.Pages
 {
     public class CreateBookingModel : PageModel
     {
-        private readonly string _connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;TrustServerCertificate=True;";
-
+        private readonly string connectionString =
+    "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
         public List<Booking> Bookings { get; private set; }
 
-        public List<Machine> Machines { get; private set; }   
-        public List<Resident> Residents { get; private set; } 
+        public void OnGet()
+        {
+            //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
+            BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
+            BookingService service = new BookingService(repo);
 
+            Bookings = service.GetAll();
+        }
         [BindProperty]
         public Booking NewBooking { get; set; }
 
         public string Message { get; private set; }
 
-        public void OnGet()
-        {
-            BookingCollectionRepo bookingRepo = new BookingCollectionRepo(_connectionString);
-            BookingService bookingService = new BookingService(bookingRepo);
-            Bookings = bookingService.GetAll();
-
-            MachineCollectionRepo machineRepo = new MachineCollectionRepo(_connectionString);
-            Machines = machineRepo.GetAll();
-
-            ResidentCollectionRepo residentRepo = new ResidentCollectionRepo(_connectionString);
-            Residents = residentRepo.GetAll();
-        }
-
         public void OnPost()
         {
-            BookingCollectionRepo bookingRepo = new BookingCollectionRepo(_connectionString);
-            BookingService bookingService = new BookingService(bookingRepo);
+            //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
+            BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
+            BookingService service = new BookingService(repo);
 
             try
             {
-                bookingService.Add(NewBooking);
+                service.Add(NewBooking);
                 Message = "Booking oprettet!";
             }
             catch (Exception ex)
@@ -49,9 +42,30 @@ namespace Vask_En_Tid.Pages
                 Message = "Fejl: " + ex.Message;
             }
 
-            Machines = new MachineCollectionRepo(_connectionString).GetAll();
-            Residents = new ResidentCollectionRepo(_connectionString).GetAll();
-            Bookings = bookingService.GetAll();
+            Bookings = service.GetAll();
         }
+
+        public IActionResult OnPostDelete(int bookingID)
+        {
+            var repo = new BookingCollectionRepo(connectionString);
+            var service = new BookingService(repo);
+
+            try
+            {
+                service.Delete(bookingID); 
+                Message = "Booking slettet!";
+            }
+            catch (Exception ex)
+            {
+                Message = "Fejl ved sletning: " + ex.Message;
+            }
+
+           
+            Bookings = service.GetAll();
+
+           
+            return RedirectToPage();
+        }
+
     }
 }

@@ -4,34 +4,69 @@
     ViewData["Title"] = "Opret booking";
 }
 
-<h2>Opret ny booking</h2>
+<h2>Vasketids-bookinger</h2>
 
+<!-- Besked til brugeren -->
 @if (!string.IsNullOrEmpty(Model.Message))
 {
     <p style="font-weight:bold;">@Model.Message</p>
 }
 
+<!-- Liste over eksisterende bookinger -->
+<table class="table table-bordered" style="width:60%; margin-bottom:20px;">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Beboer ID</th>
+            <th>Maskine ID</th>
+            <th>Dato</th>
+            <th>Tidsrum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Bookings != null && Model.Bookings.Count > 0)
+        {
+            foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    
+                    <td>@booking.BookingID</td>
+                    <td>@booking.ResidentID</td>
+                    <td>@booking.MachineID</td>
+                    <td>@booking.BookingDate.ToString("dd-MM-yyyy")</td>
+                    <td>@booking.TimeSlot</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="bookingID" value="@booking.BookingID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" style="text-align:center;">Ingen bookinger fundet</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<!-- Formular til at oprette en ny booking -->
+<h3>Opret ny booking</h3>
+
 <form method="post" style="width:50%;">
     <div style="margin-bottom:10px;">
-        <label for="ResidentID">Vælg beboer:</label><br />
-        <select asp-for="NewBooking.ResidentID" id="ResidentID" required>
-            <option value="">-- Vælg beboer --</option>
-            @foreach (var r in Model.Residents)
-            {
-                <option value="@r.ResidentID">@r.ResidentName (Lejlighed @r.ApartmentNr)</option>
-            }
-        </select>
+        <label for="ResidentID">Beboer ID:</label><br />
+        <input asp-for="NewBooking.ResidentID" type="number" id="ResidentID" required />
     </div>
 
     <div style="margin-bottom:10px;">
-        <label for="MachineID">Vælg maskine:</label><br />
-        <select asp-for="NewBooking.MachineID" id="MachineID" required>
-            <option value="">-- Vælg maskine --</option>
-            @foreach (var m in Model.Machines)
-            {
-                <option value="@m.MachineID">@m.MachineName (@m.MachineType)</option>
-            }
-        </select>
+        <label for="MachineID">Maskine ID:</label><br />
+        <input asp-for="NewBooking.MachineID" type="number" id="MachineID" required />
     </div>
 
     <div style="margin-bottom:10px;">
@@ -41,7 +76,7 @@
 
     <div style="margin-bottom:10px;">
         <label for="TimeSlot">Tidsrum:</label><br />
-        <select asp-for="NewBooking.TimeSlot" id="TimeSlot" required>
+        <select asp-for="NewBooking.TimeSlot" id="TimeSlot">
             <option value="Morning">Morgen (08-10)</option>
             <option value="Afternoon">Eftermiddag (12-14)</option>
             <option value="Evening">Aften (16-18)</option>
