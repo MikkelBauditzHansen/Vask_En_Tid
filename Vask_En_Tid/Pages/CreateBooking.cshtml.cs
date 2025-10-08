@@ -13,7 +13,7 @@ namespace Vask_En_Tid.Pages
 
         public void OnGet()
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTid;Trusted_Connection=True;";
+            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
             BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
             BookingService service = new BookingService(repo);
 
@@ -26,7 +26,7 @@ namespace Vask_En_Tid.Pages
 
         public void OnPost()
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTid;Trusted_Connection=True;";
+            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=VaskEnTidDataBase;Trusted_Connection=True;";
             BookingCollectionRepo repo = new BookingCollectionRepo(connectionString);
             BookingService service = new BookingService(repo);
 
